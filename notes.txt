@@ -1,0 +1,14 @@
+mkdir langchain-agent
+cd langchain-agent
+python3 -m venv .venv
+source .venv/bin/activate   # (on Windows: .venv\Scripts\activate)
+pip install langchain openai python-dotenv
+
+# Run from within .venv
+pip install langchain langchain-openai
+
+deactivate
+
+
+# Github Openai playground
+pip install azure-ai-inference azure-core
