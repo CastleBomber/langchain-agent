@@ -10,5 +10,5 @@ pip install langchain langchain-openai
 deactivate
 
 
-# Github Openai playground
+# Github Marketplace Openai playground
 pip install azure-ai-inference azure-core

@@ -1,26 +1,42 @@
-from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+#!/usr/bin/env python
+'''
+********************************************************
+    Author: CBombs
+    Date:   October 28th, 2025
+
+    Project: LangChain Agent
+
+    Environment: Github Marketplace Openai playground
+        
+*********************************************************
+'''
 import os
 from dotenv import load_dotenv
+from azure.ai.inference import ChatCompletionsClient
+from azure.ai.inference.models import SystemMessage, UserMessage
+from azure.core.credentials import AzureKeyCredential
 
-load_dotenv()
+load_dotenv()  # Load .env file
 
-# Create model
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+endpoint = "https://models.github.ai/inference"
+model = "openai/gpt-4.1"
+token = os.environ["GITHUB_TOKEN"]
 
-# Create prompt
-prompt = ChatPromptTemplate.from_template(
-    "You are a helpful AI assistant. Answer clearly: {question}"
+client = ChatCompletionsClient(
+    endpoint=endpoint,
+    credential=AzureKeyCredential(token),
 )
 
-# Build chain
-chain = LLMChain(llm=llm, prompt=prompt)
+response = client.complete(
+    messages=[
+        SystemMessage(""),
+        UserMessage("What is the meaning of life?"),
+    ],
+    temperature=1,
+    top_p=1,
+    model=model
+)
 
-# Ask something
-while True:
-    user_input = input("Ask me something (or 'exit'): ")
-    if user_input.lower() == "exit":
-        break
-    response = chain.run({"question": user_input})
-    print("🤖:", response)
+print(response.choices[0].message.content)
+
+
