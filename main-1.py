@@ -5,8 +5,13 @@
     Date:   October 28th, 2025
 
     Project: LangChain Agent
+    Description: Simple AI Chat Agent with a basic Math Tool
+    Details: Stores user inputs for the session conversation only
+    Environment: Github Marketplace's Openai playground using Azure SDK for Python
 
-    Environment: Github Marketplace Openai playground using Azure SDK for Python
+    Commands to run:
+    source .venv/bin/activate
+    python main.py
 
 *********************************************************
 """
@@ -32,7 +37,8 @@ client = ChatCompletionsClient(
     credential=AzureKeyCredential(token),
 )
 
-# Simple math tool
+# Simple math tool (user keyword input: 'calc')
+# Handles a special command (calc 2+2) locally instead of sending it to the model.
 def do_math(expression):
     try:
         return str(eval(expression))
@@ -49,7 +55,7 @@ while True:
     if user_input.lower() in ["exit", "quit"]:
         break
     
-    # Tool use: math
+    # Math tool: handle local 'calc' command
     if user_input.startswith("calc "):
         result = do_math(user_input[5:])
         print("🧮:", result)

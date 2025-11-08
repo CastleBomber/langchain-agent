@@ -1,0 +1,3 @@
+Tools
+handling locally vs sending it to the model
+

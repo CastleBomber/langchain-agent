@@ -1,4 +1,7 @@
-### ADDITIONAL CONTENTS FOR A .gitignore FILE
+### The good stuf
+# AI 
+memory.json
+
 # Python
 __pycache__/
 *.pyc
