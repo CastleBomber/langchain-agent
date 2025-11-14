@@ -76,11 +76,67 @@
     "content": "\ud83e\ude70 Pixelated image saved as pixelated_zeus.png"
   },
   {
-    "role": "human",
+    "role": "ai",
     "content": "pixelate 32x32 zeus.png"
   },
   {
     "role": "system",
     "content": "\ud83e\ude70 Pixelated image saved as pixelated_zeus.png"
+  },
+  {
+    "role": "ai",
+    "content": "pixelate 32x32 man.png"
+  },
+  {
+    "role": "system",
+    "content": "\u274c PoseEngine: Image file not found \u2014 check the name or path: man.png"
+  },
+  {
+    "role": "ai",
+    "content": "pixelate 32x32 zeus.png"
+  },
+  {
+    "role": "system",
+    "content": "\u274c PoseEngine: Image file not found \u2014 check the name or path: zeus.png"
+  },
+  {
+    "role": "ai",
+    "content": "pixelate 32x32 man.png"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\ude70 Pixelated image saved as man-1.png"
+  },
+  {
+    "role": "ai",
+    "content": "pixelate 32x32 man.png"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\ude70 Pixelated image saved as man-2.png"
+  },
+  {
+    "role": "ai",
+    "content": "pixelate 64x64 man.png"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\ude70 Pixelated image saved as man-2.png"
+  },
+  {
+    "role": "human",
+    "content": "pixelate 64x64 man.png"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\ude70 Pixelated image saved as images/man-2.png"
+  },
+  {
+    "role": "human",
+    "content": "pixelate man.png"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\ude70 Pixelated image saved as images/man-3.png"
   }
 ]

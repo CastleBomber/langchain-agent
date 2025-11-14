@@ -1,7 +1,7 @@
-from PIL import Image
-import imageio
+from PIL import Image # opening images, resizing, pixelation
+import imageio # saving GIFs
 import numpy as np
-import re, os
+import re, os # parsing commands
 
 class PoseEngine:
     """Detects pose or motion commands and handles them"""
@@ -22,9 +22,39 @@ class PoseEngine:
             if re.search(rf"\b{keyword}\b", text.lower()):
                 return keyword
         return None
+    
+    def generate_sequential_name(self, image_path):
+        """Generate a new filename inside images/ by appending -1, -2, etc. to avoid overwriting"""
+        images_dir = "images"
+        os.makedirs(images_dir, exist_ok=True)
+
+        base = os.path.splitext(os.path.basename(image_path))[0]  # "zeus"
+        ext = os.path.splitext(image_path)[1]                      # ".png"
+
+        n = 1
+        while True:
+            candidate = f"{base}-{n}{ext}"   # zeus-1.png
+            candidate_path = os.path.join(images_dir, candidate)
+
+            if not os.path.exists(candidate_path):
+                return candidate_path
+            n += 1
+
+    def resolve_image_path(self, filename):
+        """First search: current dir → images/"""
+        # 1. Check current directory
+        if os.path.exists(filename):
+            return filename
+
+        # 2. Check ./images/
+        img_path = os.path.join("images", filename)
+        if os.path.exists(img_path):
+            return img_path
+
+        return None 
 
     def handle_pose(self, keyword, user_input=None):
-        """Handle a detected pose command and act on an image if provided"""
+        """Handle pose command based on keyword input"""
         action = self.pose_keywords[keyword]
 
         # --- detect optional custom size (e.g., "64x64")
@@ -37,18 +67,23 @@ class PoseEngine:
 
         if not image_path:
             return f"❗ PoseEngine: No image filename detected in your command."
-        if not os.path.exists(image_path):
+        
+        # Resolve filename first (current dir → images/)
+        resolved = self.resolve_image_path(image_path)
+        if not resolved:
             return f"❌ PoseEngine: Image file not found — check the name or path: {image_path}"
 
         # --- pixelate command
         if keyword == "pixelate":
-            return self.pixelate_image(image_path, custom_size)
+            return self.pixelate_image(resolved, custom_size=custom_size)
 
         # --- motion commands
         elif keyword in ["walk", "run", "jump"]:
             return self.create_motion_gif(image_path, keyword)
 
         return f"🩰 PoseEngine: {action} (simulation only for now)."
+
+
 
     def pixelate_image(self, image_path, custom_size=None, pixel_size=10):
         """
@@ -66,7 +101,7 @@ class PoseEngine:
             small = img.resize((img.width // pixel_size, img.height // pixel_size), Image.NEAREST)
 
         pixelated = small.resize(img.size, Image.NEAREST)
-        out_path = f"pixelated_{os.path.basename(image_path)}"
+        out_path = self.generate_sequential_name(image_path)
         pixelated.save(out_path)
 
         return f"🩰 Pixelated image saved as {out_path}"
