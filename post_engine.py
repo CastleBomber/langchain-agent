@@ -79,11 +79,9 @@ class PoseEngine:
 
         # --- motion commands
         elif keyword in ["walk", "run", "jump"]:
-            return self.create_motion_gif(image_path, keyword)
+            return self.create_motion_gif(resolved, keyword)
 
         return f"🩰 PoseEngine: {action} (simulation only for now)."
-
-
 
     def pixelate_image(self, image_path, custom_size=None, pixel_size=10):
         """

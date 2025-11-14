@@ -64,7 +64,14 @@ else:
     )]
 
 print("\n\n🎞️ Frames AI ready!")
-    
+
+# --- Simple greeting/chat handler ---
+def handle_small_talk(user_input):
+    greetings = ["hello", "hi", "hey", "how's it going", "good morning", "good evening"]
+    if any(g.lower() in user_input.lower() for g in greetings):
+        return "🤖 Frames: Hey there! How can I help you today?"
+    return None
+
 # --- Handle abrupt exits ---
 def handle_exit(sig=None, frame=None):
     save_memory()
@@ -80,9 +87,18 @@ while True:
     if user_input.lower() in ["exit", "quit"]:
         handle_exit()
 
+
+    # First, check if it's small talk
+    chat_response = handle_small_talk(user_input)
+    if chat_response:
+        print(chat_response)
+        memory.append(HumanMessage(user_input))
+        memory.append(SystemMessage(chat_response))
+        save_memory()
+        continue
+
     # Add user input to memory
     memory.append(HumanMessage(user_input))
-
 
     # 🧩 Pose detection
     pose_keyword = pose_engine.detect_pose(user_input)

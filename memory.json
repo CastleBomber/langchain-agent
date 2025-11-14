@@ -124,7 +124,7 @@
     "content": "\ud83e\ude70 Pixelated image saved as man-2.png"
   },
   {
-    "role": "human",
+    "role": "ai",
     "content": "pixelate 64x64 man.png"
   },
   {
@@ -132,11 +132,43 @@
     "content": "\ud83e\ude70 Pixelated image saved as images/man-2.png"
   },
   {
-    "role": "human",
+    "role": "ai",
     "content": "pixelate man.png"
   },
   {
     "role": "system",
     "content": "\ud83e\ude70 Pixelated image saved as images/man-3.png"
+  },
+  {
+    "role": "ai",
+    "content": "hello"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\udd16 Frames: Hey there! How can I help you today?"
+  },
+  {
+    "role": "ai",
+    "content": "hey"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\udd16 Frames: Hey there! How can I help you today?"
+  },
+  {
+    "role": "ai",
+    "content": "hi"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\udd16 Frames: Hey there! How can I help you today?"
+  },
+  {
+    "role": "human",
+    "content": "walk man.png"
+  },
+  {
+    "role": "system",
+    "content": "\ud83e\ude70 GIF for 'walk' saved as walk_man.gif"
   }
 ]
